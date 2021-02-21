@@ -157,6 +157,8 @@ static void mqtt_client_publish(mqtt_client_t *ctx, char const *topic, char cons
         return;
 
     ctx->message_id++;
+    fprintf(stderr, "LAME1: TOPIC: %s\n", topic);
+    fprintf(stderr, "LAME2: STR: %s\n", str);
     mg_mqtt_publish(ctx->conn, topic, ctx->message_id, ctx->publish_flags, str, strlen(str));
 }
 
@@ -480,7 +482,7 @@ struct data_output *data_output_mqtt_create(struct mg_mgr *mgr, char *param, cha
     char *dot = strchr(mqtt->hostname, '.');
     if (dot)
         *dot = '\0';
-    //fprintf(stderr, "Hostname: %s\n", hostname);
+    fprintf(stderr, "Hostname: %s\n", hostname);
 
     // generate a short deterministic client_id to identify this input device on restart
     uint16_t host_crc = crc16((uint8_t *)mqtt->hostname, strlen(mqtt->hostname), 0x1021, 0xffff);
